@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-
+// TO JEST WERSJA Z ZAJEC NIESKONCZONA!!!
 
 function main () {
 	$.ajax({
@@ -23,9 +23,6 @@ function main () {
 		$(".book-title").on("click", ".book-title", function(event) {
 			alert("click");
 		});
-
-
-
 
 	}
 	
