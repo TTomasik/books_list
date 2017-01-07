@@ -1,6 +1,11 @@
 .book-details {
-	display: none;
-	border: 1px solid black;
-	
+	display: none;	
+	width: 25%;
 
 }
+
+.quarter {
+	width: 25%;		
+
+}
+
