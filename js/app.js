@@ -12,20 +12,19 @@ function main () {
 			for(var i=0; i<json.length; i++) {								//
 				var $book = $("<p>", {class: 'book-title', 'data-id': json[i].id});
 				$book.html("<strong>" + json[i].title + "</strong>");		// obrabiamy wyciagniete <section>
+				var $buttonDel = $("<button>", {"data-id": json[i].id, class: "delete btn-xs btn-danger"});
+				$buttonDel.text('DELETE')
 				$section.append($book);
-				$section.append($("<div class='book-details'>"));			//
+				$section.append($("<div class='book-details'>"));
+				$section.append($buttonDel)			//
 			}
 
 			$('h1#title').after($section);		// wrzucamy spowrotem <section> dajemy after zeby bylo po h1
 			
 		});
-
-
 	}
 	
 main();
-
-
 
 $(document).on("click", ".book-title", function(event) {
 
@@ -43,57 +42,98 @@ $(document).on("click", ".book-title", function(event) {
 
 });
 
+// function new () {
 
+// 	$.ajax({
+// 		url: "http://127.0.0.1:8000/book/" + $(this).last().data(parseInt("id") + 1) + "/",
+// 		type: "POST" 
+// 	}).done(function(json) {
 
+// 		var $form = $("form")
 
+// 		for (var i=0; i<form.length; i++) {
 
-
-
-
-
-
-
-
-
-			// for(var i=0; i<json.length; i++) {
-
-			
-
-			
-
-			
-
-			// }
-
-
-
-
-
-
-
-
-
-// if ( $( ".book-title" ).length ) { 
-//    			 $( ".book-title" ).show(); 
-// 		} else {
-// 			console.log("nie ma!")
 // 		}
+		
+// 		// $(self).next().html("<p>" + json.author + "</p>" + "<p>" + json.title + "</p>" +
+// 		// "<p>" + json.isbn + "</p>" + "<p>" + json.publisher + "</p>" + "<p>" + 
+// 		// json.genre + "</p>").slideToggle("slow") 
+	
+// 	});
 
-
-// var $test = $("section")
-// $test.on("click", function(event) {
-// 	alert("nie dotykaj!")
-// });
-
-// if ($test.is("#books-list")) {
-// 	alert("UDAŁO SIĘ!!!");
-// } else {
-// 	alert("NIE EEEEE EE EE");
 // }
 
+// new();
+
+
+
+$("form").on("submit", function(e) {
+
+
+    
+
+    var $newAuthor = $("input").eq(0).val();
+    console.log($newAuthor);
+    var $newTitle = $("input").eq(1).val();
+    console.log($newTitle);
+    var $newISBN = $("input").eq(2).val();
+    console.log($newISBN);
+    var $newPublisher = $("input").eq(3).val();
+    console.log($newPublisher);
+    var $newGenre = $("select").val();
+    console.log($newGenre);
+
+	var OK = true;
+
+
+    if ($newTitle.length < 1  || $newAuthor.length < 1  || $newPublisher.length < 1) {
+        OK = false;
+
+        alert("FORM ERROR!!! Check length of inputs.");
+        }
+
+    if (OK == false) {
+    e.preventDefault();
+    } else if (OK == true) {
+
+	    $.ajax({
+	    url:  "http://127.0.0.1:8000/book/",
+	    type: "POST",
+	    data: {'author': $newAuthor, 'title': $newTitle, 'isbn': $newISBN, 'publisher': $newPublisher, 'genre': $newGenre},
+        //success: function(){ alert("book adaed"); },
+        //error: function(){ alert("error");}
+	    }
+	    ).done(function(json) {
+         alert("Book added");
+	    });
+	    
+		}
+
+});
+
+
+
+
+$(document).on("click", ".delete", function(event) {
+
+	var self = this
+
+	$.ajax({
+		url: "http://127.0.0.1:8000/book/" + $(this).data("id") + "/",
+		type: "DELETE" 
+	}).done(function(json) {
+		
+		alert("BOOK HAS BEEN DELETED");
+		window.setTimeout(function(){location.reload()},100);
+	
+	});
+
+});
 
 
 });
+
+
 
 
 
