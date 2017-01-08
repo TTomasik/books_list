@@ -10,20 +10,20 @@ function main () {
 			var $section = $('#books-list').detach();	// wyciagamy <section> 
 
 			for(var i=0; i<json.length; i++) {								//
-				var $book = $("<p>", {class: 'book-title', 'data-id': json[i].id});
+				var $book = $('<div>', {class: 'book-title btn-xs btn-default quarter', 'data-id': json[i].id});
 				$book.html("<strong>" + json[i].title + "</strong>");		// obrabiamy wyciagniete <section>
-				var $buttonDel = $("<button>", {"data-id": json[i].id, class: "delete btn-xs btn-danger"});
+				var $buttonDel = $("<button>", {"data-id": json[i].id, class: "margin delete btn-xs btn-danger"});
 				$buttonDel.text('DELETE')
 				$section.append($book);
-				$section.append($("<div class='book-details'>"));
-				$section.append($buttonDel)			//
+				$section.append($("<div class='well book-details'>"));
+				$book.append($buttonDel)			//
 			}
 
 			$('h1#title').after($section);		// wrzucamy spowrotem <section> dajemy after zeby bylo po h1
 			
 		});
 	}
-	
+					
 main();
 
 $(document).on("click", ".book-title", function(event) {
@@ -99,9 +99,7 @@ $("form").on("submit", function(e) {
 	    $.ajax({
 	    url:  "http://127.0.0.1:8000/book/",
 	    type: "POST",
-	    data: {'author': $newAuthor, 'title': $newTitle, 'isbn': $newISBN, 'publisher': $newPublisher, 'genre': $newGenre},
-        //success: function(){ alert("book adaed"); },
-        //error: function(){ alert("error");}
+	    data: {'author': $newAuthor, 'title': $newTitle, 'isbn': $newISBN, 'publisher': $newPublisher, 'genre': $newGenre}
 	    }
 	    ).done(function(json) {
          alert("Book added");
