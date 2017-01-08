@@ -12,11 +12,11 @@ function main () {
 			for(var i=0; i<json.length; i++) {								//
 				var $book = $('<div>', {class: 'book-title btn-xs btn-default quarter', 'data-id': json[i].id});
 				$book.html("<strong>" + json[i].title + "</strong>");		// obrabiamy wyciagniete <section>
-				var $buttonDel = $("<button>", {"data-id": json[i].id, class: "delete btn-xs btn-danger"});
+				var $buttonDel = $("<button>", {"data-id": json[i].id, class: "margin delete btn-xs btn-danger"});
 				$buttonDel.text('DELETE')
 				$section.append($book);
 				$section.append($("<div class='well book-details'>"));
-				$section.append($buttonDel)			//
+				$book.append($buttonDel)			//
 			}
 
 			$('h1#title').after($section);		// wrzucamy spowrotem <section> dajemy after zeby bylo po h1
